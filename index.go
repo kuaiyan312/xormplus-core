@@ -70,8 +70,3 @@ func (index *Index) Equal(dst *Index) bool {
 	}
 	return true
 }
-
-// NewIndex new an index object
-func NewIndex(name string, indexType int) *Index {
-	return &Index{true, name, indexType, make([]string, 0)}
-}
