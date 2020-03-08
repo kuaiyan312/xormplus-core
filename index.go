@@ -23,6 +23,11 @@ type Index struct {
 	Cols      []string
 }
 
+// NewIndex new an index object
+func NewIndex(name string, indexType int) *Index {
+	return &Index{true, name, indexType, make([]string, 0)}
+}
+
 func (index *Index) XName(tableName string) string {
 	if !strings.HasPrefix(index.Name, "UQE_") &&
 		!strings.HasPrefix(index.Name, "IDX_") {
