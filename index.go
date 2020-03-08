@@ -31,8 +31,8 @@ func NewIndex(name string, indexType int) *Index {
 func (index *Index) XName(tableName string) string {
 	if !strings.HasPrefix(index.Name, "UQE_") &&
 		!strings.HasPrefix(index.Name, "IDX_") {
-		tableName = strings.Replace(tableName, `"`, "", -1)
-		tableName = strings.Replace(tableName, `.`, "_", -1)
+		tableParts := strings.Split(strings.Replace(tableName, `"`, "", -1), ".")
+		tableName = tableParts[len(tableParts)-1]
 		if index.Type == UniqueType {
 			return fmt.Sprintf("UQE_%v_%v", tableName, index.Name)
 		}
