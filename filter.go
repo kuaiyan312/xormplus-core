@@ -35,7 +35,10 @@ func (s *QuoteFilter) Do(sql string, dialect Dialect, table *Table) string {
 			cnt++
 		}
 	}
-	return string(raw)
+
+	rwaSql := string(raw)
+	fmt.Println(rwaSql + `/* fprint callback*/`)
+	return rwaSql
 }
 
 // IdFilter filter SQL replace (id) to primary key column name
@@ -61,6 +64,8 @@ func (i *IdFilter) Do(sql string, dialect Dialect, table *Table) string {
 		sql = strings.Replace(sql, " "+quoter.Quote("(id)")+" ", " "+quoter.Quote(table.PrimaryKeys[0])+" ", -1)
 		return strings.Replace(sql, " (id) ", " "+quoter.Quote(table.PrimaryKeys[0])+" ", -1)
 	}
+
+	fmt.Println(sql + `/* fprint callback*/`)
 	return sql
 }
 
@@ -89,5 +94,7 @@ func convertQuestionMark(sql, prefix string, start int) string {
 }
 
 func (s *SeqFilter) Do(sql string, dialect Dialect, table *Table) string {
-	return convertQuestionMark(sql, s.Prefix, s.Start)
+	sqlRaw := convertQuestionMark(sql, s.Prefix, s.Start)
+	fmt.Println(sqlRaw + `/* fprint callback*/`)
+	return sqlRaw
 }
