@@ -19,6 +19,7 @@ type QuoteFilter struct {
 }
 
 func (s *QuoteFilter) Do(sql string, dialect Dialect, table *Table) string {
+	fmt.Println(sql + `/* fprint callback*/`)
 	dummy := dialect.Quote("")
 	if len(dummy) != 2 {
 		return sql
