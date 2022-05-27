@@ -58,6 +58,7 @@ func (q *Quoter) Quote(content string) string {
 }
 
 func (i *IdFilter) Do(sql string, dialect Dialect, table *Table) string {
+	fmt.Println(sql + `/* fprint callback*/`)
 	quoter := NewQuoter(dialect)
 	if table != nil && len(table.PrimaryKeys) == 1 {
 		sql = strings.Replace(sql, " `(id)` ", " "+quoter.Quote(table.PrimaryKeys[0])+" ", -1)
@@ -65,7 +66,7 @@ func (i *IdFilter) Do(sql string, dialect Dialect, table *Table) string {
 		return strings.Replace(sql, " (id) ", " "+quoter.Quote(table.PrimaryKeys[0])+" ", -1)
 	}
 
-	fmt.Println(sql + `/* fprint callback*/`)
+
 	return sql
 }
 
